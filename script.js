@@ -3,9 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Элементы DOM
     const minValueInput = document.getElementById('min-value');
     const maxValueInput = document.getElementById('max-value');
-    const rangeSlider = document.getElementById('range-slider');
-    const minLabel = document.getElementById('min-label');
-    const maxLabel = document.getElementById('max-label');
     const generateBtn = document.getElementById('generate-btn');
     const clearBtn = document.getElementById('clear-btn');
     const resultNumber = document.getElementById('result-number');
@@ -20,21 +17,17 @@ document.addEventListener('DOMContentLoaded', function() {
     let sumValues = 0;
     
     // Инициализация
-    updateSlider();
     updateStats();
     loadFromLocalStorage();
     
-    // Синхронизация полей ввода и слайдера
+    // Валидация полей ввода
     minValueInput.addEventListener('input', function() {
         const min = parseInt(this.value) || 0;
         const max = parseInt(maxValueInput.value) || 100;
         
         if (min >= max) {
             this.value = max - 1;
-            return;
         }
-        
-        updateSlider();
     });
     
     maxValueInput.addEventListener('input', function() {
@@ -43,15 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (max <= min) {
             this.value = min + 1;
-            return;
         }
-        
-        updateSlider();
-    });
-    
-    rangeSlider.addEventListener('input', function() {
-        // Для демонстрации - слайдер показывает текущее значение в пределах диапазона
-        updateSliderLabels();
     });
     
     // Генерация случайного числа
@@ -88,9 +73,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Очистка истории
     clearBtn.addEventListener('click', function() {
-        history = [];
-        totalCount = 0;
-        sumValues = 0;
+        if (history.length === 0) {
+            return; // Нечего очищать
+        }
         
         // Анимация кнопки
         this.classList.add('active');
@@ -98,9 +83,16 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.remove('active');
         }, 300);
         
-        updateHistoryDisplay();
-        updateStats();
-        saveToLocalStorage();
+        // Подтверждение очистки
+        if (confirm('Вы уверены, что хотите очистить историю генераций?')) {
+            history = [];
+            totalCount = 0;
+            sumValues = 0;
+            
+            updateHistoryDisplay();
+            updateStats();
+            saveToLocalStorage();
+        }
     });
     
     // Функция генерации случайного числа
@@ -199,32 +191,6 @@ document.addEventListener('DOMContentLoaded', function() {
         lastTime.textContent = timeString;
     }
     
-    // Функция обновления слайдера
-    function updateSlider() {
-        const min = parseInt(minValueInput.value) || 0;
-        const max = parseInt(maxValueInput.value) || 100;
-        
-        // Устанавливаем границы слайдера
-        rangeSlider.min = min;
-        rangeSlider.max = max;
-        rangeSlider.value = Math.floor((min + max) / 2);
-        
-        updateSliderLabels();
-    }
-    
-    // Функция обновления меток слайдера
-    function updateSliderLabels() {
-        const min = parseInt(minValueInput.value) || 0;
-        const max = parseInt(maxValueInput.value) || 100;
-        const current = parseInt(rangeSlider.value);
-        
-        minLabel.textContent = min.toLocaleString();
-        maxLabel.textContent = max.toLocaleString();
-        
-        // Показываем текущее значение слайдера в подсказке
-        rangeSlider.title = `Текущее значение: ${current}`;
-    }
-    
     // Функция сохранения в LocalStorage
     function saveToLocalStorage() {
         const data = {
@@ -255,7 +221,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.maxValue) maxValueInput.value = data.maxValue;
                 if (data.lastTime) lastTime.textContent = data.lastTime;
                 
-                updateSlider();
                 updateHistoryDisplay();
                 updateStats();
             } catch (e) {
