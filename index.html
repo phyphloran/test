@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор чисел | StockExchange Pro</title>
+    <!-- Favicon - динамическая SVG иконка -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <span>StockGen</span>
+            </div>
+            <div class="market-status">
+                <div class="status-indicator active"></div>
+                <span>Генератор активен</span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="dashboard">
+                <div class="dashboard-header">
+                    <h1><i class="fas fa-random"></i> Генератор случайных чисел</h1>
+                    <p class="subtitle">Профессиональный инструмент для генерации случайных значений в реальном времени</p>
+                </div>
+
+                <div class="generator-card">
+                    <div class="card-header">
+                        <h2>Генератор PRO</h2>
+                        <div class="badge">
+                            <i class="fas fa-bolt"></i>
+                            Мгновенный результат
+                        </div>
+                    </div>
+
+                    <div class="range-selector">
+                        <div class="range-inputs">
+                            <div class="input-group">
+                                <label for="min-value"><i class="fas fa-arrow-down"></i> Минимальное значение</label>
+                                <input type="number" id="min-value" value="1" min="0" max="999999">
+                            </div>
+                            <div class="input-group">
+                                <label for="max-value"><i class="fas fa-arrow-up"></i> Максимальное значение</label>
+                                <input type="number" id="max-value" value="100" min="1" max="1000000">
+                            </div>
+                        </div>
+                        <div class="range-slider">
+                            <div class="slider-labels">
+                                <span id="min-label">1</span>
+                                <span id="max-label">100</span>
+                            </div>
+                            <input type="range" id="range-slider" min="1" max="100" value="50" class="slider">
+                        </div>
+                    </div>
+
+                    <div class="result-display">
+                        <div class="result-label">Сгенерированное число</div>
+                        <div class="result-number" id="result-number">--</div>
+                        <div class="result-history">
+                            <span class="history-label">История:</span>
+                            <div class="history-numbers" id="history-numbers"></div>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button id="generate-btn" class="generate-btn">
+                            <i class="fas fa-play"></i>
+                            <span>Сгенерировать число</span>
+                        </button>
+                        <button id="clear-btn" class="clear-btn">
+                            <i class="fas fa-trash"></i>
+                            Очистить историю
+                        </button>
+                    </div>
+
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-generated">0</div>
+                            <div class="stat-label">Всего сгенерировано</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="average-value">0</div>
+                            <div class="stat-label">Среднее значение</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="last-time">--:--</div>
+                            <div class="stat-label">Последняя генерация</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-card">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>Как это работает</h3>
+                        <p>Наш генератор использует криптографически безопасный алгоритм для создания случайных чисел в заданном диапазоне. Каждое число генерируется в реальном времени.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Статистика в реальном времени</h3>
+                        <p>Отслеживайте статистику генерации: общее количество чисел, среднее значение и время последней генерации.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Полная адаптивность</h3>
+                        <p>Интерфейс адаптируется под любые устройства: от десктопов до мобильных телефонов.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="copyright">© 2023 StockGen Pro. Все права защищены.</div>
+                <div class="footer-links">
+                    <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#"><i class="fas fa-question-circle"></i> Помощь</a>
+                    <a href="#"><i class="fas fa-envelope"></i> Контакты</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
